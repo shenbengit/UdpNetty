@@ -45,6 +45,11 @@ manager.setReceiveMessageCallback(new ReceiveMessageCallback() {
     public void onReceiveMsg(String msg, InetSocketAddress sender) {
                 
     }
+    
+    @Override
+    public void onException(Exception e) {
+    
+    }
 });
 
 //仅启用发送消息功能
@@ -69,13 +74,16 @@ manager.stop();
 
 >  若需要监听多个端口，请参考下面使用事例
 ```java
-UdpServer udpServer = new UdpServer(7777);
+UdpServer udpServer = new UdpServer(7777, new ReceiveMessageCallback() {
 
-//接收消息回调
-udpServer.setReceiveMessageCallback(new ReceiveMessageCallback() {
     @Override
     public void onReceiveMsg(String msg, InetSocketAddress sender) {
                 
+    }
+    
+    @Override
+    public void onException(Exception e) {
+    
     }
 });
 
