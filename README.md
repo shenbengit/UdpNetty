@@ -39,7 +39,7 @@ manager.setDiscardMessageCallback(new DiscardMessageCallback() {
      }
 });
 
-//接收消息回调
+//接收消息回调，最好一开始设置，避免发送端异常接收不到
 manager.setReceiveMessageCallback(new ReceiveMessageCallback() {
     @Override
     public void onReceiveMsg(String msg, InetSocketAddress sender) {
