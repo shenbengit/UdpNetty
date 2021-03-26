@@ -1,16 +1,9 @@
 package com.shencoder.udpnettydemo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
 import com.shencoder.udpnetty.UdpConfig;
 import com.shencoder.udpnetty.UdpManager;
-import com.shencoder.udpnetty.bean.MessageBean;
-import com.shencoder.udpnetty.callback.DiscardMessageCallback;
-import com.shencoder.udpnetty.callback.ReceiveMessageCallback;
-
-import java.net.InetSocketAddress;
 
 
 public class MainActivity extends AppCompatActivity {

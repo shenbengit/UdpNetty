@@ -27,7 +27,6 @@ public class UdpConfig {
         LogUtil.DEBUG = builder.isLoggable;
     }
 
-
     public boolean isResendEnable() {
         return resendEnable;
     }

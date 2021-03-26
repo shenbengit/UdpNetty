@@ -121,9 +121,6 @@ class UdpClient implements Runnable {
             final int number;
             if (!isResend) {
                 ++mSerialNumber;
-                if (mSerialNumber > 1024) {
-                    mSerialNumber = 0;
-                }
                 number = mSerialNumber;
                 mLock.lock();
                 try {
@@ -134,7 +131,7 @@ class UdpClient implements Runnable {
             } else {
                 number = msg.getSerialNumber();
             }
-            msg.setResendTimes(msg.getResendTimes() + 1);  //发送的消息次数+1
+            msg.setResendTimes(msg.getResendTimes() + 1);
             msg.setSendTimeMillis(System.currentTimeMillis());
             msg.setSerialNumber(number);
             byte[] msgArray = msg.getMsg().getBytes(Charset.forName("gb2312"));
@@ -157,7 +154,6 @@ class UdpClient implements Runnable {
                             LogUtil.i(TAG + "send to ip " + msg.getIp() + ":" + msg.getPort() + ",isSuccess:" + future.isSuccess() + ", serial number: " + number);
                         }
                     });
-
         }
     }
 
@@ -198,7 +194,7 @@ class UdpClient implements Runnable {
                     if (mDiscardMessageCallback != null) {
                         mDiscardMessageCallback.onDiscardMsg(bean);
                     }
-                    LogUtil.e(TAG + "send to ip " + bean.getIp() + ", msg's serial number" + bean.getSerialNumber() + ", more than" + resendLimit + ", removed.");
+                    LogUtil.e(TAG + "send to ip " + bean.getIp() + ", msg's serial number" + bean.getSerialNumber() + ", more than " + resendLimit + ", removed.");
                     continue;
                 }
                 //3秒后重新发送
