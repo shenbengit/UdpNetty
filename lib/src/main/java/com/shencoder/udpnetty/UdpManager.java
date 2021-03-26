@@ -4,6 +4,8 @@ import com.shencoder.udpnetty.bean.MessageBean;
 import com.shencoder.udpnetty.callback.DiscardMessageCallback;
 import com.shencoder.udpnetty.callback.ReceiveMessageCallback;
 
+import java.net.InetSocketAddress;
+
 
 /**
  * @author ShenBen
@@ -43,10 +45,20 @@ public class UdpManager {
         return SingleHolder.INSTANCE;
     }
 
+    /**
+     * 设置丢失消息回调
+     *
+     * @param mDiscardMessageCallback
+     */
     public void setDiscardMessageCallback(DiscardMessageCallback mDiscardMessageCallback) {
         this.mDiscardMessageCallback = mDiscardMessageCallback;
     }
 
+    /**
+     * 设置接收消息回调，最好在{@link #startServer(int)} 之前调用，避免造成异常接收不到
+     *
+     * @param mReceiveMessageCallback
+     */
     public void setReceiveMessageCallback(ReceiveMessageCallback mReceiveMessageCallback) {
         this.mReceiveMessageCallback = mReceiveMessageCallback;
     }
@@ -105,13 +117,13 @@ public class UdpManager {
 
 
     /**
-     * 只看起接收端
+     * 只开启接收端
      *
      * @param inetPort 接收端监听的端口
      */
     public void startServer(int inetPort) {
         if (AppUtil.isIllegalPort(inetPort)) {
-            LogUtil.e("监听端口错误");
+            LogUtil.e("invalid port");
             return;
         }
 
@@ -120,10 +132,19 @@ public class UdpManager {
             return;
         }
         stopServer();
-        mUdpServer = new UdpServer(inetPort);
-        mUdpServer.setReceiveMessageCallback((msg, sender) -> {
-            if (mReceiveMessageCallback != null) {
-                mReceiveMessageCallback.onReceiveMsg(msg, sender);
+        mUdpServer = new UdpServer(inetPort, new ReceiveMessageCallback() {
+            @Override
+            public void onReceiveMsg(String msg, InetSocketAddress sender) {
+                if (mReceiveMessageCallback != null) {
+                    mReceiveMessageCallback.onReceiveMsg(msg, sender);
+                }
+            }
+
+            @Override
+            public void onException(Exception e) {
+                if (mReceiveMessageCallback != null) {
+                    mReceiveMessageCallback.onException(e);
+                }
             }
         });
         mUdpServer.start();

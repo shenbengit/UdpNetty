@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/01/07 14:08
  * @email 714081644@qq.com
  */
-class UdpServer implements Runnable {
+public class UdpServer implements Runnable {
     private static final String TAG = "UdpServer->";
     /**
      * 监听的端口号
@@ -27,8 +27,9 @@ class UdpServer implements Runnable {
     private ReceiveMessageCallback mReceiveMessageCallback;
     private ExecutorService executorService;
 
-    public UdpServer(int inetPort) {
+    public UdpServer(int inetPort, ReceiveMessageCallback callback) {
         this.inetPort = inetPort;
+        this.mReceiveMessageCallback = callback;
     }
 
     public int getInetPort() {
@@ -60,7 +61,10 @@ class UdpServer implements Runnable {
                     .channel();
             LogUtil.i(TAG + "started");
             channel.closeFuture().await();
-        } catch (InterruptedException ignore) {
+        } catch (Exception e) {
+            if (mReceiveMessageCallback != null) {
+                mReceiveMessageCallback.onException(e);
+            }
             if (channel != null) {
                 channel.close();
             }
@@ -70,15 +74,11 @@ class UdpServer implements Runnable {
         }
     }
 
-    void setReceiveMessageCallback(ReceiveMessageCallback mReceiveMessageCallback) {
-        this.mReceiveMessageCallback = mReceiveMessageCallback;
-    }
-
-    void start() {
+    public void start() {
         execute(this);
     }
 
-    void stop() {
+    public void stop() {
         shutdownNow();
     }
 

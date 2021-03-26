@@ -151,7 +151,7 @@ class UdpClient implements Runnable {
             )
                     .addListener(future -> {
                         if (future != null) {
-                            LogUtil.i(TAG + "send to ip " + msg.getIp() + ":" + msg.getPort() + ",isSuccess:" + future.isSuccess() + ", serial number: " + number);
+                            LogUtil.i(TAG + "send to ip : " + msg.getIp() + ":" + msg.getPort() + ", isSuccess: " + future.isSuccess() + ", serial number: " + number);
                         }
                     });
         }
@@ -194,7 +194,7 @@ class UdpClient implements Runnable {
                     if (mDiscardMessageCallback != null) {
                         mDiscardMessageCallback.onDiscardMsg(bean);
                     }
-                    LogUtil.e(TAG + "send to ip " + bean.getIp() + ", msg's serial number" + bean.getSerialNumber() + ", more than " + resendLimit + ", removed.");
+                    LogUtil.e(TAG + "send to ip : " + bean.getIp() + ", msg's serial number :" + bean.getSerialNumber() + ", more than " + resendLimit + ", removed.");
                     continue;
                 }
                 //3秒后重新发送

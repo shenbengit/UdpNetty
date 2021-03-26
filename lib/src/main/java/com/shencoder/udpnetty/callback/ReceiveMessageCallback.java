@@ -19,4 +19,13 @@ public interface ReceiveMessageCallback {
      * @param sender 发送端相关信息,{@link InetSocketAddress#getHostName()}是个耗时操作，建议使用{@link InetSocketAddress#getHostString()}
      */
     void onReceiveMsg(String msg, InetSocketAddress sender);
+
+    /**
+     * 异常回调
+     *
+     * @param e {@link InterruptedException} 可以忽略
+     */
+    default void onException(Exception e) {
+
+    }
 }
