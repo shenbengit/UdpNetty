@@ -90,7 +90,7 @@ UdpServer udpServer = new UdpServer(7777, new ReceiveMessageCallback() {
 //开启
 udpServer.start();
 
-//关闭发送端和接收端
+//关闭
 udpServer.stop();
 
 ```
