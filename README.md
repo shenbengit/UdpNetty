@@ -1,20 +1,21 @@
 # UdpNetty
 基于[Netty](https://github.com/netty/netty)封装UDP收发工具，支持设置消息重发、重发次数、重发间隔。
 ## 引入
-[ ![Download](https://api.bintray.com/packages/shencoder/java-lib/udp-netty/images/download.svg) ](https://bintray.com/shencoder/java-lib/udp-netty/_latestVersion)
-### Gradle:
-最新版本
-```gradle
-//必选
-implementation 'com.shencoder:udp-netty:latestVersion'
-```
-###### 如果Gradle出现implementation失败的情况，可以在Project的build.gradle里面添加如下：
+
+### 将JitPack存储库添加到您的项目中(项目根目录下build.gradle文件)
 ```gradle
 allprojects {
     repositories {
-        //...
-        maven { url 'https://dl.bintray.com/shencoder/java-lib' }
+        ...
+        maven { url 'https://jitpack.io' }
     }
+}
+```
+### 添加依赖
+[![](https://jitpack.io/v/shenbengit/UdpNetty.svg)](https://jitpack.io/#shenbengit/UdpNetty)
+```gradle
+dependencies {
+    implementation 'com.github.shenbengit:UdpNetty:Tag'
 }
 ```
 ## 使用事例
