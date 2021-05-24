@@ -18,7 +18,7 @@ class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
     private static final String TAG = "UdpServerHandler->";
 
-    private UdpServer mUdpServer;
+    private final UdpServer mUdpServer;
 
     public UdpServerHandler(UdpServer server) {
         mUdpServer = server;

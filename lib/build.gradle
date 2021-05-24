@@ -1,12 +1,13 @@
 apply plugin: 'java-library'
-apply from: 'bintray.gradle'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "io.netty:netty-all:4.1.60.Final"
+    implementation "io.netty:netty-all:4.1.60.Final"
 }
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

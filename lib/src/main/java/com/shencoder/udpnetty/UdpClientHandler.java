@@ -14,7 +14,7 @@ import io.netty.channel.socket.DatagramPacket;
 class UdpClientHandler extends SimpleChannelInboundHandler<DatagramPacket> {
     public static final String TAG = "UdpClientHandler->";
 
-    private UdpClient mUdpClient;
+    private final UdpClient mUdpClient;
 
     public UdpClientHandler(UdpClient client) {
         mUdpClient = client;

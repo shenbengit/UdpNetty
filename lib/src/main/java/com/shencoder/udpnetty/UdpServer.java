@@ -23,8 +23,8 @@ public class UdpServer implements Runnable {
     /**
      * 监听的端口号
      */
-    private int inetPort;
-    private ReceiveMessageCallback mReceiveMessageCallback;
+    private final int inetPort;
+    private final ReceiveMessageCallback mReceiveMessageCallback;
     private ExecutorService executorService;
 
     public UdpServer(int inetPort, ReceiveMessageCallback callback) {
